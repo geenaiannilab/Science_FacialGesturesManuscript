@@ -7,6 +7,7 @@
 %%%%%%%% GPI index by region, only for selective cells (GPI > 0.5) 
 %%%%%%%% Input data includes 'combinedResults', which contains
 %%%%%%%%    'faceExpPrefIndex' (GPI) and total number of cells per region 
+%%%%%%%    Also contains (name)RawData.meanFRs, used to compute GPI
 %%%%%%%%% GRI 09/11/2025 
 
 clear all

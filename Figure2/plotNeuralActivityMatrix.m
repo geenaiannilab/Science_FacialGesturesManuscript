@@ -5,6 +5,9 @@
 %%%%%%%%
 %%%%%%%% Sample population activity of all simultaneously recorded cells 
 %%%%%%%% (top, sorted by area) and facial marker positions (bottom) 
+%%%%%%%% DLCout is nBins x nMarkerPositions (each x and y) 
+%%%%%%%% "raster" is nCells x nBins of FRs, cells sorted by region
+%%%%%%% 
 %%%%%%%%% GRI 09/11/2025 
 
 close all; clear all;
