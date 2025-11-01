@@ -21,31 +21,31 @@ scalar = 3000;
 tmin = taxis(1); tmax = taxis(end);
 
 %% plot 10% of trials starting position (THIS IS SLOW) 
-% figure;
-% colors = 'rbg';
-% sampleFrac = 0.02;
-% nTotalTrials = sum([size(markerData2plot(1).data,2),size(markerData2plot(2).data,2),size(markerData2plot(3).data,2)]);
-% randSample = ceil(sampleFrac*nTotalTrials);
-% 
-% for bhv = 1:length(bhvs2plot)
-%     
-%     thisData = markerData2plot(bhv).data;
-%     
-%     for tt = 1:size(thisData,2)
-%         for i = 1:length(markerLabels)
-%             xpos = (i*2) - 1;
-%             ypos = (i*2);
-%             x = markerData2plot(bhv).data(1,tt,xpos);
-%             y = -markerData2plot(bhv).data(1,tt,ypos);
-% 
-%             s = scatter(x,y,150,colors(bhv),'filled'); 
-%             s.MarkerFaceAlpha = 0.1; hold on; 
-% 
-%         end
-%     end
-% end
-% title('Starting Position for All Trials');
-% clear markerData2plot; 
+figure;
+colors = 'rbg';
+sampleFrac = 0.02;
+nTotalTrials = sum([size(markerData2plot(1).data,2),size(markerData2plot(2).data,2),size(markerData2plot(3).data,2)]);
+randSample = ceil(sampleFrac*nTotalTrials);
+
+for bhv = 1:length(bhvs2plot)
+    
+    thisData = markerData2plot(bhv).data;
+    
+    for tt = 1:size(thisData,2)
+        for i = 1:length(markerLabels)
+            xpos = (i*2) - 1;
+            ypos = (i*2);
+            x = markerData2plot(bhv).data(1,tt,xpos);
+            y = -markerData2plot(bhv).data(1,tt,ypos);
+
+            s = scatter(x,y,150,colors(bhv),'filled'); 
+            s.MarkerFaceAlpha = 0.1; hold on; 
+
+        end
+    end
+end
+title('Starting Position for All Trials');
+clear markerData2plot; 
 
 %% tSNE embedding per trial 
 allBhv = tsneResults.allBhv;
