@@ -25,10 +25,10 @@ gestureNames = {'threat','lipsmack','chew'};
 markers2use =  'all'; excludeTongue = 1; plotDLCFlag = false; 
 newBinSize = 0.01;
 tmin = 1;
-tmax = 2;
+tmax = 1;
 centerNormalizeFlag = 0;
 centerFlag = 1;
-smoothSize = 5; 
+smoothSize = 10; 
 
 minRestFlag = 1;
 minRest = abs(tmin); % in sec; minimal rest prior to move onset (trials to include)
