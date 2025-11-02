@@ -27,11 +27,9 @@ outcomeMetric = 'CC'; % vs R2 vs RSME etc
 saveFlag = false; 
 statsPrint = false; 
 
-resultsDir = '/Users/geena/Documents/MATLAB/projects/FacialGesturesPaperCode/FaceGesturePaper/Figure4/matfiles';
-
 %% define the dataset you are running
-decodingResults = load([resultsDir '/Fig4AResults.mat' ]); %true results 
-decodingShuffleResults =  load([resultsDir '/Fig4ANullResults.mat']);
+decodingResults = load(['matfiles/Fig4AResults.mat' ]); %true results 
+decodingShuffleResults =  load(['matfiles/Fig4ANullResults.mat']);
 
 regionList = fieldnames(decodingResults.resultsOut.combined)';
 
@@ -41,7 +39,7 @@ statesBhvRelv = [2 3 4 8 10 12 20]; %  N1 gridsearch
 additionalStates = [2 4 8 10]; % ** this is NOT Nx (Nx = statesBhvRelv + additional) **
 horizonValues = [5 10 15  ];  % i gridsearch 
 nz = 5;                       % bhvDims predicted      
-taxis = -0.5:0.05:1.5;         % time axis; didnt save in results file, ugh
+taxis = -0.5:0.05:1.5;         % time axis; 
 
 % region colormap
 regionCmap = [0.4940 0.1840 0.5560	
@@ -336,9 +334,9 @@ for rr = length(regionList)
     heldOutBhvPred = reshape(outerBhvPredC,length(taxis),length(outerBhvTest),nz);
     
     figure('units','normalized','outerposition',[0 0 1 1])
-    ha = tight_subplot(1,3,0.125,[0.075 0.1],[0.1 0.05]);
+    ha = tight_subplot(1,2,0.125,[0.075 0.1],[0.1 0.05]);
 
-    for bb = 1:nz-2 % each predicted bhvPC
+    for bb = 1:nz-3 % each predicted bhvPC
         
         test1Y = mean(heldOutBhvTest(:,:,bb),2);
         test1Err = 2*(std(heldOutBhvTest(:,:,bb),[],2) ./ sqrt(length(outerBhvTest)));
@@ -362,7 +360,7 @@ for rr = length(regionList)
 
     end
 
-    set(ha(1:nz-2),'XTickLabel',[-0.5 0 0.5 1 1.5]); 
+    set(ha(1:nz-3),'XTickLabel',[-0.5 0 0.5 1 1.5]); 
     sgtitle([regionList{rr} 'Iter = ' num2str(ii)],'FontSize',36,'FontWeight','bold')
 end
 

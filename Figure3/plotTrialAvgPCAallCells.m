@@ -11,7 +11,8 @@
 %%%%%%%% Note that Figures 3C, 3D in the main manuscript are all cells, all regions together 
 %%%%%%%% Input is data.AllDataOut.(region).score, which is nTimepoints x nPCs
 %%%%%%%% 
-%%%%%%%% This will also plot each region independently, as in Fig S9
+%%%%%%%%  This will also plot each region independently, as in Fig S9
+%%%%%%%%  (change input file) 
 % written GRI 250911
 
 clear all; close all;
@@ -22,7 +23,7 @@ set(0,'defaultAxesFontWeight','bold')
 %% load data 
 %% ============================
 
-fileList = dir(fullfile('matfiles/Fig3C*.mat')); % change depending on which trajectory to plot 
+fileList = dir(fullfile('matfiles/Fig3C.mat')); 
 dataFiles = {fileList.name};
 
 for dd = 1:length(dataFiles)

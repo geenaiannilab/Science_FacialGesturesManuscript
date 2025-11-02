@@ -8,14 +8,15 @@
 %%%%%%%
 %%%%%%% data.allCellsPerTrialSpikeCount contains summed spike counts;  nTrials x nCells 
 %%%%%%  data.allTrials contains which categorical gesture occured, nTrials
-%%%%%% 
+%%%%%%
+%%%%%% % change input file to examine plots from Supplementary Figures
 % written GRI 250911
 
 clear all; close all;
 set(0,'defaultAxesFontSize',36)
 set(0,'defaultAxesFontWeight','bold')
 
-data = load('matfiles/Fig3A.mat'); % change input file to examine plots from Supplementary Figures
+data = load('matfiles/Fig3A.mat'); 
 thisRegion = 'All';
 
 centerOnlyFlag = 0; % ONLY mean center input to PCA (dont divide by std)
@@ -87,17 +88,10 @@ legend({'Threat','Lipsmack','Chew'})
 view(3); grid on; 
 
 ax = gca;
-set(ax, 'CameraPosition',  [-84.9252  76.9082  48.6309], ...
-        'CameraTarget',    [2.5 2.5 0], ...
-        'CameraUpVector',  [0 0 1], ...
-        'CameraViewAngle', 10.18);
+set(ax, 'CameraPosition',  [-84.9252  76.9082  48.6309], 'CameraTarget',    [2.5 2.5 0], ...
+        'CameraUpVector',  [0 0 1], 'CameraViewAngle', 10.18);
 drawnow; 
-set(ax, 'CameraPositionMode','auto', ...
-        'CameraTargetMode','auto', ...
-        'CameraUpVectorMode','auto', ...
-        'CameraViewAngleMode','auto');
+set(ax, 'CameraPositionMode','auto', 'CameraTargetMode','auto', ...
+        'CameraUpVectorMode','auto', 'CameraViewAngleMode','auto');
 
 rotate3d(ax, 'on');     
-% %plotFig = gcf;
-%fileOut = ['/Users/geena/Dropbox/PhD/Manuscript/ScienceSubmission/ScienceRevision/ScienceResubmissionFigures/Fig3A_' thisRegion '.pdf'];
-%exportgraphics(plotFig, fileOut, 'ContentType', 'vector');

@@ -16,7 +16,7 @@ regions2analyze = {'All'};
 bhvs2plot = [1 2 4];
 bhvStrings = {'Threat','Lipsmack','Chew'};
 pixThresh = 50 .^2; %5 .^2; % dont include cells with STAs areas smaller than this
-option = 'descend'; %'descend' determines if you look at dissimilar or similar pairs first 
+option = 'ascend'; %'descend' determines if you look at dissimilar or similar pairs first 
 
 % load some pre-defined per-cell metrics 
 corrMatrices = load(['/Users/geena/Dropbox/PhD/SUAinfo/Barney_210704/CorrMatricesV2/' regions2analyze{1} '.mat']);
@@ -152,7 +152,7 @@ end
 plotFig3 = figure;  
 set(plotFig3, 'Position', [screensize(3) screensize(4) screensize(3) screensize(4)]);
 
-for pp = 1:2:length(sortedOrigIndx) % skips the cell A-B / cell B-A repeat
+for pp = 14:2:length(sortedOrigIndx) % skips the cell A-B / cell B-A repeat
 
     cc = sortedOrigIndx(pp,1);
     dd = sortedOrigIndx(pp,2);

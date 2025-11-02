@@ -35,7 +35,7 @@ cmap1 = [0.4940 0.1840 0.5560
 
 %% Fig 4D, top and bottom rows 
 %% for each region, plot self-sorted and unified sorted, neural correlation matrices 
-for rr = 1:length(regions)
+for rr = length(regions)
     
     data = load([workdir '/' regions{rr} '.mat']);
 

@@ -66,7 +66,7 @@ for aa = 1:length(arrayList)
     yticks(1:skipFactor:(length(windowsCenter)))
     yticklabels(windowsCenter(xticks))
     
-    cb = colorbar; cb.Label.String = 'Accuracy'; colorbarpzn(0.3,1,'full',0.6); 
+    cb = colorbar; cb.Label.String = 'Accuracy'; colorbarpzn(0.3,0.9,'full',0.6); 
     set ( gca, 'FontSize', 24);
     title([arrayList{aa} ' - Generalization Across Time'], 'FontSize',28)
     %saveas(plotFig, ['/Users/geena/Dropbox/PhD/Manuscript/figures/' arrayList{aa} '_CTD_' subject '_' popType '.fig']);
@@ -138,7 +138,7 @@ if plotIndividualIterations
         xticklabels(windowsCenter(xticks))
         yticks(1:2:(length(windowsCenter)))
         yticklabels(windowsCenter(xticks))
-        cb = colorbar; cb.Label.String = 'Accuracy'; caxis([0.55 1]); colormap(jet);
+        cb = colorbar; cb.Label.String = 'Accuracy'; caxis([0.55 0.9]); colormap(jet);
         title('Mean CTD')
 
         title([subject ' - ' arrayList{1} 'N: ' num2str(i)],'FontSize',20)

@@ -118,7 +118,7 @@ for ss = 1:length(subject2analyze)
 
         legend('S1','M1','PMv','M3');
     end
-    sgtitle(['Average Intra-Trajectory Distances; All Dimensions'],'FontSize',28,'FontWeight','bold');
+    sgtitle(['Average Intra-Trajectory Distances; All Dimensions'],'FontSize',28);
 
 
     %% repeat for a number of different dimensions
@@ -134,7 +134,7 @@ for ss = 1:length(subject2analyze)
             
             legend('S1','M1','PMv','M3');
         end
-       sgtitle(['Average Intra-Trajectory Distances; Dims = ' num2str(dims2test(dd)) ],'FontSize',28,'FontWeight','bold');
+       sgtitle(['Average Intra-Trajectory Distances; Dims = ' num2str(dims2test(dd)) ],'FontSize',28);
 
         %% pairwise intratrajectory distances, over dd-Dim
        fig5 = figure('Position', [476    83   975   783]);
@@ -149,7 +149,7 @@ for ss = 1:length(subject2analyze)
             title([arrayList{aa} '; Dims = ' num2str(dims2test(dd))])
             legend('Thr-LS','Thr-Ch','LS-Ch');
         end
-    sgtitle(['Pairwise Intra-Trajectory Distances; ' num2str(dims2test(dd)) '-D'],'FontSize',28,'FontWeight','bold');
+    sgtitle(['Pairwise Intra-Trajectory Distances; ' num2str(dd) '-D'],'FontSize',28);
 
         %% global trajectory VELOCITIES, over dd-Dim
         fig6 = figure('Position', [476    83   975   783]);

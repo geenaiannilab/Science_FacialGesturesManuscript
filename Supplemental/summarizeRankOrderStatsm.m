@@ -16,7 +16,7 @@
 
 set(0,'defaultAxesFontSize', 24); % bc im blind
 set(0,'defaultAxesFontWeight', 'bold'); 
-metric = 'Kendall'; % or 'Spearman'; will print these results to console 
+metric = 'Spearman'; % or 'Spearman'; will print these results to console 
 
 combined = summarize_rankorder_results_dirs({''}, 'DayLabel','dir', ...
     'FilePattern','*rankSim*.mat', ... 
