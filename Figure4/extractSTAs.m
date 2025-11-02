@@ -1,25 +1,18 @@
-% Preserved = 
-% 38-1 (10) and 29-1 (9)
-
-% Non-presreved = 
-% 29-1 (9) and 56 -1  (18)
-
-% Random = 38-2 (11) and 56-2 (19) 
+% for Fig 4E, extract STAs and normalized PETH
+%
 
 clear all;
-data = load('~/Desktop/Fig4E.mat');
+%data = load('~/Dropbox/geena/PhD/SUAInfo/Fig4E.mat');
 
-cellPairs = {[10 9] [11 19] [9 18] };
+cellPairs = {[10 9] [18 11] [17 9]};
 bhvs2plot = [1 2];
 
 newPixR = data.newPixR;
 newPixC = data.newPixC;
 taxis = data.corrMatrices.taxis;
 
-%% for comparsion, another cell pair correlation metric -- 
-% for each cell pair, for each behavior, calculate the 2D spatial
-% correlation between WHOLE FRAME, BINARIZED STAs (ignoring magnitude of STA)
-
+%% for each cell pair, for each behavior, calculate the 2D spatial
+% correlation between whole frame STAs
 counter = 1;
 for pp = 1:length(cellPairs)
 
@@ -40,16 +33,11 @@ for pp = 1:length(cellPairs)
     dataThrOut(:,:,counter+1) = thatCellThr;
 
     counter = counter +2;
-    
-    % extract the signalCorr & normalized PETHs of all cellpairs in each behavior
-    for bhv = 1:length(bhvs2plot)
-
-        allCorr(pp,bhv) = data.corrMatrices.signalCorrOverTime(bhv).corr(cc,dd);
-        
-    end
 
 end
 
+%% extract their signalCorrelations (as in Fig 4D)
+%% extrac their PETH for plotting 
 counter = 1;
 for  pp = 1:length(cellPairs)
 
@@ -59,6 +47,13 @@ for  pp = 1:length(cellPairs)
     for bhv = bhvs2plot
         normTrialAvg(bhv).data(:,counter) = zscore(data.corrMatrices.trialAvg(bhv).data(:,cc));
         normTrialAvg(bhv).data(:,counter+1) = zscore(data.corrMatrices.trialAvg(bhv).data(:,dd));
+        
+    end
+
+    % extract the signalCorr all cellpairs in each behavior
+    for bhv = 1:length(bhvs2plot)
+
+        allCorr(pp,bhv) = data.corrMatrices.signalCorrOverTime(bhv).corr(cc,dd);
         
     end
     counter = counter + 2;

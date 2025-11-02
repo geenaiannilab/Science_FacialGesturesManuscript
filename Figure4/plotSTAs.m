@@ -1,10 +1,10 @@
-% Preserved = 
-% 38-1 (10) and 29-1 (9)
-
-% Non-presreved = 
-% 29-1 (9) and 56 -1  (18)
-
-% Random = 38-2 (11) and 56-2 (19) 
+%%% PLOTTING FIG 4E
+%%%% this will load and plot the 1) spike-triggered movement averages
+%%%% (STAs) for each cell, and compute 2D correlation betwene pairs 
+%%%% 2) plot their normalized FRs during each gesture 
+%%%% Figure 1: (top row): correlations invert (R= 0.97, lipsmack, R= -0.71,
+%%%% Figure 2: (middle row): correlations preserved (R=0.92, lipsmack, R=0.61, threat)
+%%%% Figure 3: (bottom row):  correlations disappear (R= 0.85 lipsmack, R= -0.01 threat) 
 
 clear all; close all; 
 data = load('matfiles/Fig4E_STAsOnly.mat');
@@ -26,39 +26,70 @@ end
 counter = 1;
 for pp = 1:length(cellPairs)
 
-        f = figure; f.WindowState = 'fullscreen';
+        f = figure; %f.WindowState = 'fullscreen';
 
         ha = tight_subplot(2,3,[.1 .1],[.05 .05],[.02 .02]);
         
-        axes(ha(1)); 
-        imagesc(squeeze(data.dataLSOut(:,:,counter))); colormap(flip(pink))
-        ha(1).XTick = []; ha(1).YTick = [];
-        title('Cell 1, LS STA')
+        if pp == 3
+            axes(ha(1));
+            imagesc(squeeze(data.dataLSOut(:,:,counter+1))); colormap(flip(pink))
+            ha(1).XTick = []; ha(1).YTick = [];
+            title('Cell 1, LS STA')
 
-        axes(ha(2)); 
-        imagesc(squeeze(data.dataLSOut(:,:,counter+1))); colormap(flip(pink)); 
-        ha(2).XTick = []; ha(2).YTick = [];
-        title(['Cell 2, LS STA, R^2 =' num2str(round(corrLSSTAs(pp),2))])
+            axes(ha(2));
+            imagesc(squeeze(data.dataLSOut(:,:,counter))); colormap(flip(pink));
+            ha(2).XTick = []; ha(2).YTick = [];
+            title(['Cell 2, LS STA, R^2 =' num2str(round(corrLSSTAs(pp),2))])
 
+        else
+            axes(ha(1));
+            imagesc(squeeze(data.dataLSOut(:,:,counter))); colormap(flip(pink))
+            ha(1).XTick = []; ha(1).YTick = [];
+            title('Cell 1, LS STA')
+
+            axes(ha(2));
+            imagesc(squeeze(data.dataLSOut(:,:,counter+1))); colormap(flip(pink));
+            ha(2).XTick = []; ha(2).YTick = [];
+            title(['Cell 2, LS STA, R^2 =' num2str(round(corrLSSTAs(pp),2))])
+
+        end
+    
         axes(ha(3));
         plot(data.taxis, data.normTrialAvg(2).data(:,counter)','b','linew',6); hold on;
         plot(data.taxis, data.normTrialAvg(2).data(:,counter+1)','b','linestyle','-.','linew',6); hold off;
         legend('Cell 1', 'Cell 2')
         ylabel('Normalized FR, z-score'); xlabel('Time,s')
         
-        axes(ha(4));
-        imagesc(squeeze(data.dataThrOut(:,:,counter))); colormap(flip(pink))
-        ha(4).XTick = []; ha(4).YTick = [];
-        title('Cell 1, Threat STA')
+        if pp == 3
+             axes(ha(4));
+            imagesc(squeeze(data.dataThrOut(:,:,counter+1))); colormap(flip(pink))
+            ha(4).XTick = []; ha(4).YTick = [];
+            title('Cell 1, Threat STA')
 
-        axes(ha(5));
-        imagesc(squeeze(data.dataThrOut(:,:,counter+1))); colormap(flip(pink))
-        ha(5).XTick = []; ha(5).YTick = [];
-        title(['Cell 2, Threat STA, R^2 =' num2str(round(corrThrSTAs(pp),2))])
+            axes(ha(5));
+            imagesc(squeeze(data.dataThrOut(:,:,counter))); colormap(flip(pink))
+            ha(5).XTick = []; ha(5).YTick = [];
+            title(['Cell 2, Threat STA, R^2 =' num2str(round(corrThrSTAs(pp),2))])
+
+        else
+            axes(ha(4));
+            imagesc(squeeze(data.dataThrOut(:,:,counter))); colormap(flip(pink))
+            ha(4).XTick = []; ha(4).YTick = [];
+            title('Cell 1, Threat STA')
+
+            axes(ha(5));
+            imagesc(squeeze(data.dataThrOut(:,:,counter+1))); colormap(flip(pink))
+            ha(5).XTick = []; ha(5).YTick = [];
+            title(['Cell 2, Threat STA, R^2 =' num2str(round(corrThrSTAs(pp),2))])
+
+        end
 
         axes(ha(6))
         plot(data.taxis, data.normTrialAvg(1).data(:,counter)','r','linestyle','-.','linew',6); hold on;
         plot(data.taxis, data.normTrialAvg(1).data(:,counter+1)','r', 'linew',6); hold off;
 
         counter = counter + 2;
+        disp(['Pairwise Correlation during LS = ' num2str(round(data.allCorr(pp,2),2))])
+        disp(['Pairwise Correlation during Threat = ' num2str(round(data.allCorr(pp,1),2))])
+
 end

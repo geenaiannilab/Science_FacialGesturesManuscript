@@ -1,13 +1,17 @@
-% Preserved = 
-% 38-1 (10) and 29-1 (9)
+%%% PLOTTING FIG 4E
+%%%% this will load and plot the 1) spike-triggered movement averages
+%%%% (STAs) for each cell, and compute 2D correlation betwene pairs 
+%%%% 2) plot their normalized FRs during each gesture 
+%%%% Figure 1: (top row): correlations invert (R= 0.97, lipsmack, R= -0.71,
+%%%% Figure 2: (middle row):
 
-% Non-presreved = 
-% 29-1 (9) and 56 -1  (18)
 
-% Random = 38-2 (11) and 56-2 (19) 
+% highly correlated during one gesture type, remain correlated during another gesture 
+(Fig. 4E, middle row; Pearson1s R=0.92, lipsmack, R=0.61, threat), 
+we also saw strong correlations disappear across gestures (bottom row; R= 0.85 lipsmack, R= -0.01 threat) or 
 
 clear all; close all; 
-data = load('matfiles/Fig4E_STAsOnly.mat');
+data = load('matfiles/Fig4E_STAsOnly_tmp.mat');
 cellPairs = data.cellPairs;
 bhvs2plot = data.bhvs2plot;
 
@@ -26,7 +30,7 @@ end
 counter = 1;
 for pp = 1:length(cellPairs)
 
-        f = figure; f.WindowState = 'fullscreen';
+        f = figure; %f.WindowState = 'fullscreen';
 
         ha = tight_subplot(2,3,[.1 .1],[.05 .05],[.02 .02]);
         
@@ -58,7 +62,7 @@ for pp = 1:length(cellPairs)
 
         axes(ha(6))
         plot(data.taxis, data.normTrialAvg(1).data(:,counter)','r','linestyle','-.','linew',6); hold on;
-        plot(data.taxis, data.normTrialAvg(1).data(:,counter+1)','r', 'linestyle','-.','linew',6); hold off;
+        plot(data.taxis, data.normTrialAvg(1).data(:,counter+1)','r', 'linew',6); hold off;
 
         counter = counter + 2;
 end
