@@ -21,16 +21,16 @@
  
 
 clear all;
-set(0,'defaultAxesFontSize',28)
+set(0,'defaultAxesFontSize',24)
 set(0,'defaultAxesFontWeight','bold')
 
 %% load data
-data = load(['Matfiles/neuralTrajectory_combined.mat']);
+data = load(['matfiles/neuralTrajectory_combined.mat']);
 subject2analyze = {'combined'};
 
 %% extract parameters
 bhvs = {'Thr','LS','Chew'};
-dims2test = [12]; % [3 6 12 20];
+dims2test = [6 12 20]; % [3 6 12 20];
 
 %% pairwise stats/plotting parameters 
 dimUse     = 12;          % which dimensionality to analyze/plot
@@ -79,7 +79,9 @@ for ss = 1:length(subject2analyze)
 
     end % end all arrays 
 
-    %%  velocity of gesture-trajectories, also global average, ALL DIMs
+    %% plot distance between gesture-trajectories, also global average, using all dimensions
+    %% plot velocity of gesture-trajectories, also global average, using all dimensions
+
     fig1 = figure('Position', [476    83   975   783]);
     for aa = 1:length(arrayList)
         subplot(2,2,aa)
@@ -94,8 +96,8 @@ for ss = 1:length(subject2analyze)
     end
     sgtitle('Neural Trajectory Velocities, All Dimensions','FontSize',28,'FontWeight','bold');
  
-    %% distance between gesture-trajectories, also global average, ALL DIMS
-    fig2 = figure('Position', [476    83   975   783]);
+
+    fig3 = figure('Position', [476    83   975   783]);
     for aa = 1:length(arrayList)
         avgDistance = mean([distanceThrVLS.(arrayList{aa}).mean(:,end) distanceThrVCh.(arrayList{aa}).mean(:,end) distanceLSVCh.(arrayList{aa}).mean(:,end)],2);
         subplot(2,2,aa)
@@ -103,13 +105,13 @@ for ss = 1:length(subject2analyze)
         errorbar(taxis, distanceThrVCh.(arrayList{aa}).mean(:,end), distanceThrVCh.(arrayList{aa}).sem(:,end) ,'Color',[0.4660 0.6740 0.1880],'linew',2);
         errorbar(taxis, distanceLSVCh.(arrayList{aa}).mean(:,end), distanceLSVCh.(arrayList{aa}).sem(:,end) ,'Color',[0.6350 0.0780 0.1840]	,'linew',2);
         plot(taxis, avgDistance,'k','linew',2); hold off
-        ylabel('Distance, au'); xlabel('Time, s'); ylim([5 28 ]); xlim([taxis(1) taxis(end)]);
+        ylabel('Distance, au'); xlabel('Time, s'); ylim([5 28 ])
         title([arrayList{aa} '; All Dims'])
         legend('Thr-LS','Thr-Ch','LS-Ch');
     end
-    sgtitle(['Pairwise Intra-Trajectory Distances; All Dims'],'FontSize',28,'FontWeight','bold');
+    sgtitle([subject2analyze{:} ' All Neural Distances'],'FontSize',20);
 
-    fig3 = figure('Position', [476    83   975   783]);
+    fig4 = figure('Position', [476    83   975   783]);
     for aa = 1:length(arrayList)
         avgDistance = mean([distanceThrVLS.(arrayList{aa}).mean(:,end) distanceThrVCh.(arrayList{aa}).mean(:,end) distanceLSVCh.(arrayList{aa}).mean(:,end)],2);
         avgSEM = sum([distanceThrVLS.(arrayList{aa}).sem(:,end) distanceThrVCh.(arrayList{aa}).sem(:,end) distanceLSVCh.(arrayList{aa}).sem(:,end)],2);
@@ -118,41 +120,43 @@ for ss = 1:length(subject2analyze)
 
         legend('S1','M1','PMv','M3');
     end
-    sgtitle(['Average Intra-Trajectory Distances; All Dimensions'],'FontSize',28,'FontWeight','bold');
+    sgtitle(['Average Intra-Trajectory Distances; All Dimensions'],'FontSize',28);
 
 
     %% repeat for a number of different dimensions
+    nDimsAvail = @(arr) size(distanceThrVLS.(arr).mean, 2);
+
     for dd = 1:length(dims2test)
 
-    %% global average intratrajectory distances, over dd-Dim
-    fig4 = figure('Position', [476    83   975   783]);
+        fig5 = figure('Position', [476    83   975   783]);
+
         for aa = 1:length(arrayList)
-            avgDistance = mean([distanceThrVLS.(arrayList{aa}).mean(:,dd) distanceThrVCh.(arrayList{aa}).mean(:,dd) distanceLSVCh.(arrayList{aa}).mean(:,dd)],2);
-            avgSEM = sum([distanceThrVLS.(arrayList{aa}).sem(:,dd) distanceThrVCh.(arrayList{aa}).sem(:,dd) distanceLSVCh.(arrayList{aa}).sem(:,dd)],2);
+            col = min(dims2test(dd), nDimsAvail(arrayList{aa}));
+
+            avgDistance = mean([distanceThrVLS.(arrayList{aa}).mean(:,col) distanceThrVCh.(arrayList{aa}).mean(:,col) distanceLSVCh.(arrayList{aa}).mean(:,col)],2);
+            avgSEM = sum([distanceThrVLS.(arrayList{aa}).sem(:,col) distanceThrVCh.(arrayList{aa}).sem(:,col) distanceLSVCh.(arrayList{aa}).sem(:,col)],2);
             errorbar(taxis,avgDistance, avgSEM,'Color', colorArray(aa,:),'linew',3.5); hold on
             ylim([0 25]); ylabel('Distance, au'); xlabel('Time, s')
             
             legend('S1','M1','PMv','M3');
         end
-       sgtitle(['Average Intra-Trajectory Distances; Dims = ' num2str(dims2test(dd)) ],'FontSize',28,'FontWeight','bold');
+       sgtitle(['Average Intra-Trajectory Distances; Dims = ' num2str(dims2test(dd)) ],'FontSize',28);
 
-        %% pairwise intratrajectory distances, over dd-Dim
-       fig5 = figure('Position', [476    83   975   783]);
+       fig6 = figure('Position', [476    83   975   783]);
        for aa = 1:length(arrayList)
-           avgDistance = mean([distanceThrVLS.(arrayList{aa}).mean(:,dd) distanceThrVCh.(arrayList{aa}).mean(:,dd) distanceLSVCh.(arrayList{aa}).mean(:,dd)],2);
+           avgDistance = mean([distanceThrVLS.(arrayList{aa}).mean(:,col) distanceThrVCh.(arrayList{aa}).mean(:,col) distanceLSVCh.(arrayList{aa}).mean(:,col)],2);
            subplot(2,2,aa)
-            errorbar(taxis, distanceThrVLS.(arrayList{aa}).mean(:,dd), distanceThrVLS.(arrayList{aa}).sem(:,dd) ,'Color',[0.3010 0.7450 0.9330],'linew',2); hold on
-            errorbar(taxis, distanceThrVCh.(arrayList{aa}).mean(:,dd), distanceThrVCh.(arrayList{aa}).sem(:,dd) ,'Color',[0.4660 0.6740 0.1880],'linew',2);
-            errorbar(taxis, distanceLSVCh.(arrayList{aa}).mean(:,dd), distanceLSVCh.(arrayList{aa}).sem(:,dd) ,'Color',[0.6350 0.0780 0.1840]	,'linew',2); 
+            errorbar(taxis, distanceThrVLS.(arrayList{aa}).mean(:,col), distanceThrVLS.(arrayList{aa}).sem(:,col) ,'Color',[0.3010 0.7450 0.9330],'linew',2); hold on
+            errorbar(taxis, distanceThrVCh.(arrayList{aa}).mean(:,col), distanceThrVCh.(arrayList{aa}).sem(:,col) ,'Color',[0.4660 0.6740 0.1880],'linew',2);
+            errorbar(taxis, distanceLSVCh.(arrayList{aa}).mean(:,col), distanceLSVCh.(arrayList{aa}).sem(:,col) ,'Color',[0.6350 0.0780 0.1840]	,'linew',2); 
             plot(taxis, avgDistance,'k','linew',2); hold off
             ylim([0 25]); ylabel('Distance, au'); xlabel('Time, s')
             title([arrayList{aa} '; Dims = ' num2str(dims2test(dd))])
             legend('Thr-LS','Thr-Ch','LS-Ch');
         end
-    sgtitle(['Pairwise Intra-Trajectory Distances; ' num2str(dims2test(dd)) '-D'],'FontSize',28,'FontWeight','bold');
+        sgtitle([subject2analyze{:} ' All Neural Distances'],'FontSize',20);
 
-        %% global trajectory VELOCITIES, over dd-Dim
-        fig6 = figure('Position', [476    83   975   783]);
+        fig7 = figure('Position', [476    83   975   783]);
         for aa = length(arrayList):-1:1
             avgSEM = mean([thrVelocity.(arrayList{aa}).sem(:,dims2test(dd)), lsVelocity.(arrayList{aa}).sem(:,dims2test(dd)), chewVelocity.(arrayList{aa}).sem(:,dims2test(dd))],2);
             avgTraj2 = mean([thrVelocity.(arrayList{aa}).mean(:,dims2test(dd)), lsVelocity.(arrayList{aa}).mean(:,dims2test(dd)), chewVelocity.(arrayList{aa}).mean(:,dims2test(dd))],2);
@@ -163,8 +167,8 @@ for ss = 1:length(subject2analyze)
         hold off
         sgtitle(['Neural Trajectory Velocities, Dim = ' num2str(dims2test(dd))],'FontSize',28,'FontWeight','bold');
 
-        %% individual trajectory VELOCITIES, over dd-Dim
-        fig7 = figure('Position', [476    83   975   783]);
+
+        fig8 = figure('Position', [476    83   975   783]);
         for aa = 1:length(arrayList)
             subplot(2,2,aa)
 
@@ -514,7 +518,7 @@ for k = 1:nSub
 end
 
 sgtitle(sprintf('Pairwise Neural Trajectory Speeds — %s, Dim %d', gest, dimUse), ...
-        'FontSize', 28, 'FontWeight', 'bold');
+        'FontSize', 20, 'FontWeight', 'bold');
 
 end % subfunction
 
