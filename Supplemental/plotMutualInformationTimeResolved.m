@@ -15,7 +15,7 @@ set(0,'defaultAxesFontSize',20)
 win_ms    = 400;           % window length (ms)
 step_ms   = 10;            % step between windows (ms)
 nShuffles = 200;           % gesture label shuffles per window
-alpha_bin = 0.05;          % per-bin (cluster-forming) alpha (one-sided)
+alpha_bin = 0.01;          % per-bin (cluster-forming) alpha (one-sided)
 nPerm     = 10000;          % cluster permutations (sign-flips across neurons)
 minRun    = 2;             % minimum consecutive bins to declare latency (e.g., 1)
 
