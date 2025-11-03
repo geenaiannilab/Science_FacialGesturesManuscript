@@ -30,7 +30,7 @@ subject2analyze = {'combined'};
 
 %% extract parameters
 bhvs = {'Thr','LS','Chew'};
-dims2test = [6 12 20]; % [3 6 12 20];
+dims2test = [12 20]; % [3 6 12 20];
 
 %% pairwise stats/plotting parameters 
 dimUse     = 12;          % which dimensionality to analyze/plot
