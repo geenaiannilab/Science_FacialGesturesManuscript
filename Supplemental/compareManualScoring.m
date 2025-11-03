@@ -7,7 +7,7 @@
 
 clear all; close all;
 
-load(['../Figure1/matfiles/markerTrajectories.mat']);
+load(['matfiles/FigS1.mat']);
 
 tmin = taxis(1); tmax = taxis(end); %this is in seconds
 tbin=0.01;                          %bin width is 10 ms
